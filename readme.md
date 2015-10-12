@@ -23,11 +23,15 @@ of 3, is not a multiple of 5 and is not prime
 
 #Building the application
 
+  requires `make` and `gcc`
+
     make fib
 
   generates the file `fib.elf`
 
 #Building the tests
+
+  requires `make` and `gcc`
 
     make tests
 
