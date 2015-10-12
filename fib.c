@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 #ifndef FIB_TEST
   #define FIB_TEST 0
@@ -20,11 +21,14 @@ int IsPrime( unsigned int n );
 // if f_i is prime, prints BuzzFizz
 // otherwise f_i is printed
 // returns f_n
-// NOTE: computes n+1 total fibonacci numbers
+// NOTE 1: computes n+1 total fibonacci numbers
+// NOTE 2: if f_i exceeds UINT_MAX, an error is printed and no further 
+//         numbers in the sequence are printed
 unsigned int F( const unsigned int n )
 {
-  char outputStr[32];
-  unsigned int fib;
+  char outputStr[64];
+  unsigned int fib     = 0;
+  unsigned int fibLast = 0;
   int fn1 = 1;
   int fn2 = 0;
 
@@ -45,6 +49,15 @@ unsigned int F( const unsigned int n )
       fn2 = fn1;
       fn1 = fib;
     }
+
+    if( fibLast > fib )
+    {
+      printf("F(%u) exceeds max unsigned integer, %u.  Stopping...\n", 
+             i, 
+             UINT_MAX);
+      return fibLast;
+    }
+    fibLast = fib;
 
     int strPos = 0;
 
